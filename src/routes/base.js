@@ -10,6 +10,18 @@ module.exports = function (server) {
             method: "GET",
             path: "/",
             handler: controllers.wacdoc.indexAction
+        },
+        {
+            method: "POST",
+            path: "/upload",
+            handler: controllers.wacdoc.uploadAction,
+            config: {
+                payload: {
+                    maxBytes: 100000000,
+                    output: "stream",
+                    allow: 'multipart/form-data'
+                }
+            }
         }
     ];
 
