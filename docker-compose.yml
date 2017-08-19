@@ -1,0 +1,21 @@
+version: '2'
+services:
+    wacdoc:
+        build: .
+        volumes:
+          # FOR DEV PURPOSE ONLY - Disable in production
+          # - $DOCWAC_SRC:/src
+          # FOR PROD
+          - $UPLOAD_VOL:/src/uploads
+        environment:
+          - VIRTUAL_HOST=$DOCWAC_HOST
+          - UID=$UID
+          - GID=$GID
+    reverse-proxy:
+        image: jwilder/nginx-proxy
+        restart: always
+        ports:
+          - $HTTP_PORT:80/tcp
+          - $HTTPS_PORT:443/tcp
+        volumes:
+          - $DOCKER_SOCK:/tmp/docker.sock:ro
