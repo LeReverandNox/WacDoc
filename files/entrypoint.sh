@@ -3,7 +3,7 @@
 args=
 for arg in "$@";
 do
-  args="$args '$arg'"
+  args="$args $arg"
 done
 
 # force le changement d'id utilisateur
@@ -20,4 +20,5 @@ chown -h node /src
 find /src -exec chgrp -h node {} \;
 find /src -exec chown -h node {} \;
 
-exec su node -c "$args"
+su node -c "$args" &
+sleep infinity
