@@ -1,4 +1,4 @@
-FROM node:8.3
+FROM node:8.4
 
 RUN npm install -g bower
 
