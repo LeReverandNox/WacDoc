@@ -2,28 +2,30 @@
 /*global this*/
 
 "use strict";
-const uuid = require("uuid");
+const Uuid = require("uuid");
 const path = require("path");
 const fs = require("fs");
 const del = require("del");
 
 module.exports = (server) => {
     const config = server.app.config;
+    const services = server.app.services;
+
     const fileService = {
         upload: async function (file) {
             if (!file)
                 throw new Error("No file to upload.");
 
             const realName = file.hapi.filename;
-            const newName = uuid.v1();
-            const filePath = path.join(config.uploadPath, newName)
+            const uuid = Uuid.v1();
+            const filePath = path.join(config.uploadPath, uuid)
 
             try {
                 await this._save(file, filePath);
 
                 const infos = {
                     realName,
-                    name: newName,
+                    uuid: uuid,
                     size: fs.statSync(filePath).size,
                     path: filePath,
                     basePath: config.uploadPath,
@@ -57,6 +59,27 @@ module.exports = (server) => {
         init: function () {
             return this;
         },
+        getByUUID: async function (uuid) {
+            const file = services.db.getCollection(config.collectionName).findOne({uuid: uuid});
+            return file;
+        },
+        getList: async function () {
+            const files = services.db.getCollection(config.collectionName).find();
+            return files;
+        },
+        getContent: async function (uuid) {
+            const file = await this.getByUUID(uuid);
+            if (!file)
+                return null;
+
+            return new Promise((resolve, reject) => {
+                fs.readFile(file.path, (err, data) => {
+                    if (err)
+                        return reject(err);
+                    return resolve(data);
+                });
+            });
+        }
     };
 
     return fileService.init();

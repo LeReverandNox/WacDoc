@@ -12,6 +12,16 @@
     <title>WacDoc</title>
 </head>
 <body>
-    <h1>Hello, World !</h1>
+    <h1>WacDoc</h1>
+    <div>
+        <h2>Uploaded files</h2>
+        <ul>
+            <% for (var i = 0; i < files.length; i++) { %>
+                <li class="timeline-yellow" >
+                    <a href="/download/<%= files[i].uuid %>"><%= files[i].realName %></a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
 </body>
 </html>

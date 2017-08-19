@@ -22,6 +22,11 @@ module.exports = function (server) {
                     allow: 'multipart/form-data'
                 }
             }
+        },
+        {
+            method: "GET",
+            path: "/download/{uuid}",
+            handler: controllers.wacdoc.downloadAction
         }
     ];
 

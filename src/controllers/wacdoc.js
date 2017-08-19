@@ -9,7 +9,11 @@ module.exports = (server) => {
 
     const wacdocController = {
         indexAction: async (req, rep) => {
-            rep.view("index");
+            const files = await services.file.getList();
+            // console.log(files);
+            rep.view("index", {
+                files
+            });
         },
         uploadAction: async (req, rep) => {
             try {
@@ -19,11 +23,24 @@ module.exports = (server) => {
 
                 services.db.insertInto(config.collectionName, infos);
 
-                rep().code(200);
+                return rep().redirect("/");
             } catch (e) {
                 console.log(e);
-                rep("Something went wrong !");
+                return rep.redirect("/")
             }
+        },
+        downloadAction: async (req, rep) => {
+            const params = req.params;
+            const uuid = params.uuid;
+            const file = await services.file.getContent(uuid);
+            const fileInfos = await services.file.getByUUID(uuid);
+
+            if (!file)
+                return rep().redirect('/');
+
+            rep(file)
+                .header('Content-Type', fileInfos.mimetype)
+                .header("Content-Disposition", `filename="${fileInfos.realName}"`);
         }
     };
 
