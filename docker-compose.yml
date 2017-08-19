@@ -9,6 +9,7 @@ services:
           - $UPLOAD_VOL:/src/uploads
         environment:
           - VIRTUAL_HOST=$DOCWAC_HOST
+          - VIRTUAL_PORT=3000
           - UID=$UID
           - GID=$GID
     reverse-proxy:
