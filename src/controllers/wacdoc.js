@@ -5,6 +5,7 @@
 
 module.exports = (server) => {
     const services = server.app.services;
+    const config = server.app.config;
 
     const wacdocController = {
         indexAction: async (req, rep) => {
@@ -15,9 +16,10 @@ module.exports = (server) => {
                 const payload = req.payload;
                 const file = payload["file"];
                 const infos = await services.file.upload(file);
-                console.log(infos);
 
-                rep("GG WP");
+                services.db.insertInto(config.collectionName, infos);
+
+                rep().code(200);
             } catch (e) {
                 console.log(e);
                 rep("Something went wrong !");
