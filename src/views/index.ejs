@@ -18,7 +18,7 @@
         <ul>
             <% for (var i = 0; i < files.length; i++) { %>
                 <li class="timeline-yellow" >
-                    <a href="/download/<%= files[i].uuid %>"><%= files[i].realName %></a>
+                    <a href="/download/<%= files[i].uuid %>"><%= files[i].realName %></a> - <a href="/delete/<%= files[i].uuid %>">Delete</a>
                 </li>
             <% } %>
         </ul>

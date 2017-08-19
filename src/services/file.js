@@ -79,6 +79,19 @@ module.exports = (server) => {
                     return resolve(data);
                 });
             });
+        },
+        deleteByUUID: async function (uuid) {
+            const file = await this.getByUUID(uuid);
+            if (!file)
+                return null;
+
+            try {
+                this._delete(file.path);
+                services.db.getCollection(config.collectionName).findAndRemove({uuid: file.uuid});
+            } catch (e) {
+                console.log(e);
+            }
+
         }
     };
 

@@ -41,6 +41,17 @@ module.exports = (server) => {
             rep(file)
                 .header('Content-Type', fileInfos.mimetype)
                 .header("Content-Disposition", `filename="${fileInfos.realName}"`);
+        },
+        deleteAction: async (req, rep) => {
+            const params = req.params;
+            const uuid = params.uuid;
+            const fileInfos = await services.file.getByUUID(uuid);
+
+            if (!fileInfos)
+                return rep().redirect('/');
+
+            await services.file.deleteByUUID(uuid);
+            return rep().redirect('/');
         }
     };
 

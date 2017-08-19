@@ -27,6 +27,11 @@ module.exports = function (server) {
             method: "GET",
             path: "/download/{uuid}",
             handler: controllers.wacdoc.downloadAction
+        },
+        {
+            method: "GET",
+            path: "/delete/{uuid}",
+            handler: controllers.wacdoc.deleteAction
         }
     ];
 
