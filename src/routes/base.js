@@ -2,16 +2,16 @@
 /*global this*/
 
 "use strict";
+module.exports = function (server) {
+    const controllers = server.app.controllers;
 
-const baseRoutes = [
-    {
-        method: "GET",
-        path: "/",
-        handler: (request, reply) => {
-            console.log("ON EST SUR /");
-            reply.view("index");
+    const baseRoutes = [
+        {
+            method: "GET",
+            path: "/",
+            handler: controllers.wacdoc.indexAction
         }
-    }
-];
+    ];
 
-module.exports = baseRoutes;
+    server.route(baseRoutes);
+};
