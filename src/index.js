@@ -29,7 +29,7 @@ const server = new Hapi.Server({
     }
 });
 
-server.app.db = new Loki(`${config.uploadPath}/${config.dbName}`, { persistenceMethod: 'fs' });
+server.app.config = config;
 
 server.connection({
     port: config.server.port
@@ -38,8 +38,8 @@ server.connection({
 server.register([
     vision,
     inert,
-    controllers,
     services,
+    controllers,
     routes
 ], function (err) {
     if (err) {
