@@ -4,5 +4,16 @@ module.exports = {
     },
     uploadPath: "/src/uploads/",
     dbName: "db.json",
-    collectionName: "files"
+    collectionName: "files",
+    downloadableExtensions: [
+        "htm",
+        "html",
+        "pdf",
+        "jpeg",
+        "jpg",
+        "png",
+        "gif",
+        "txt",
+        "mywac"
+    ]
 };

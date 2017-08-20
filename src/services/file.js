@@ -23,6 +23,7 @@ module.exports = (server) => {
             try {
                 await this._save(file, filePath);
 
+                const ext = realName.split('.').pop();
                 const infos = {
                     realName,
                     uuid: uuid,
@@ -30,7 +31,9 @@ module.exports = (server) => {
                     path: filePath,
                     basePath: config.uploadPath,
                     mimetype: file.hapi.headers['content-type'],
-                    ext: realName.split('.').pop()
+                    ext,
+                    isWac: this._isWac(ext),
+                    isDownloadable: this._isDownloadable(ext)
                 };
 
                 return infos;
@@ -93,6 +96,15 @@ module.exports = (server) => {
                 console.log(e);
             }
 
+        },
+        _isDownloadable: (ext) => {
+            const extensions = config.downloadableExtensions;
+            return extensions.indexOf(ext) > -1;
+        },
+        _isWac: (ext) => {
+            if (ext === "mywac")
+                return true;
+            return false;
         }
     };
 
