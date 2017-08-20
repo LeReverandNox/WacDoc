@@ -14,7 +14,7 @@ module.exports = (server) => {
 
     const fileService = {
         upload: async function (file) {
-            if (!file)
+            if (!file || !file.hapi.filename)
                 throw new Error("No file to upload.");
 
             const realName = file.hapi.filename;
