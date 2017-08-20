@@ -95,6 +95,8 @@ module.exports = (server) => {
 
             if (!fileInfos)
                 return rep().redirect('/');
+            if (!fileInfos.isWac)
+                return rep().redirect('/');
 
             rep.view("edit", {
                 fileInfos
@@ -104,7 +106,14 @@ module.exports = (server) => {
             const params = req.params;
             const uuid = params.uuid;
 
+            const fileInfos = await services.file.getByUUID(uuid);
+
             try {
+                if (!fileInfos)
+                    throw new Error("File doesn't exists.");
+                if (!fileInfos.isWac)
+                    throw new Error("File is not of mywac type.");
+
                 const content = await services.file.getTextContent(uuid);
                 return rep({content});
             } catch (e) {
