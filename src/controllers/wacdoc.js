@@ -126,7 +126,50 @@ module.exports = (server) => {
                 console.log(e);
                 return rep("File not found.").code(404);
             }
-        }
+        },
+        exportHTML: async (req, rep) => {
+            const params = req.params;
+            const uuid = params.uuid;
+            const fileInfos = await services.file.getByUUID(uuid);
+
+            try {
+                if (!fileInfos)
+                    throw new Error("File doesn't exists.");
+                if (!fileInfos.isWac)
+                    throw new Error("File is not of mywac type.");
+
+                const htmlFile = await services.file.exportHTML(uuid);
+
+                return rep(htmlFile)
+                    .header('Content-Type', 'text/html')
+                    .header("Content-Disposition", `attachment; filename="${fileInfos.realName}.html"`);
+            } catch(e) {
+                console.log(e);
+                return rep().redirect('/');
+            }
+        },
+        exportPDF: async (req, rep) => {
+            const params = req.params;
+            const uuid = params.uuid;
+            const fileInfos = await services.file.getByUUID(uuid);
+
+            try {
+                if (!fileInfos)
+                    throw new Error("File doesn't exists.");
+                if (!fileInfos.isWac)
+                    throw new Error("File is not of mywac type.");
+
+                const pdfFile = await services.file.exportPDF(uuid);
+
+                return rep(pdfFile)
+                    .header('Content-Type', 'application/pdf')
+                    .header("Content-Disposition", `attachment; filename="${fileInfos.realName}.pdf"`);
+            } catch (e) {
+                console.log(e);
+                return rep().redirect('/');
+            }
+
+        },
     };
 
     return wacdocController;
