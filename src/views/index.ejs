@@ -17,13 +17,13 @@
             <% for (var i = 0; i < files.length; i++) { %>
                 <li class="timeline-yellow" >
                     <%= files[i].realName %>
-                    <%if (files[i].isWac === true) { %>
+                    <%if (files[i].isWac === true || isMaster) { %>
                         - <a href="/edit/<%= files[i].uuid %>">Edit</a>
                         - <a href="/export-html/<%= files[i].uuid %>">export HTML</a>
                         - <a href="/export-pdf/<%= files[i].uuid %>">export PDF</a>
                         - <a href="/delete/<%= files[i].uuid %>">Delete</a>
                     <% } %>
-                    <%if (files[i].isDownloadable === true) { %>
+                    <%if (files[i].isDownloadable === true || isMaster) { %>
                         - <a href="/download/<%= files[i].uuid %>">Download</a>
                     <% } %>
                 </li>

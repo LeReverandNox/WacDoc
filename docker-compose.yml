@@ -12,6 +12,7 @@ services:
           - VIRTUAL_PORT=3000
           - UID=$UID
           - GID=$GID
+          - MASTERKEY=$MASTERKEY
     reverse-proxy:
         image: jwilder/nginx-proxy
         restart: always

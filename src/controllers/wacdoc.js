@@ -10,9 +10,13 @@ module.exports = (server) => {
     const wacdocController = {
         indexAction: async (req, rep) => {
             const files = await services.file.getList();
+            const query = req.query;
+            const masterKey = query.masterkey;
+            const isMaster = (masterKey === config.masterKey) ? true : false;
 
             rep.view("index", {
-                files
+                files,
+                isMaster
             });
         },
         uploadAction: async (req, rep) => {

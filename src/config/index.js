@@ -15,5 +15,6 @@ module.exports = {
         "gif",
         "txt",
         "mywac"
-    ]
+    ],
+    masterKey: process.env.MASTERKEY
 };
