@@ -77,7 +77,7 @@ module.exports = (server) => {
             const payload = req.payload;
             const uuid = payload.uuid;
             const content = payload.content;
-            console.log(content);
+
             const fileInfos = await services.file.getByUUID(uuid);
 
             if (!fileInfos)
