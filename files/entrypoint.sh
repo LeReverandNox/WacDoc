@@ -17,6 +17,7 @@ if [ ! -z $GID ] && [ $GID != "1000" ]; then
 fi
 
 chown -h node /src
+chown -h node /src/uploads
 
 su node -c "$args" &
 sleep infinity
