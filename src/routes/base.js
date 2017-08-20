@@ -42,6 +42,16 @@ module.exports = function (server) {
             method: "POST",
             path: "/update",
             handler: controllers.wacdoc.updateAction
+        },
+        {
+            method: "GET",
+            path: "/edit/{uuid}",
+            handler: controllers.wacdoc.editAction
+        },
+        {
+            method: "GET",
+            path: "/gettextcontent/{uuid}",
+            handler: controllers.wacdoc.getTextContentAction
         }
     ];
 

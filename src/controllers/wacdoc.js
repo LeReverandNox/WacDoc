@@ -87,6 +87,30 @@ module.exports = (server) => {
                 return rep().redirect("/");
             }
 
+        },
+        editAction: async (req, rep) => {
+            const params = req.params;
+            const uuid = params.uuid;
+            const fileInfos = await services.file.getByUUID(uuid);
+
+            if (!fileInfos)
+                return rep().redirect('/');
+
+            rep.view("edit", {
+                fileInfos
+            });
+        },
+        getTextContentAction: async (req, rep) => {
+            const params = req.params;
+            const uuid = params.uuid;
+
+            try {
+                const content = await services.file.getTextContent(uuid);
+                return rep({content});
+            } catch (e) {
+                console.log(e);
+                return rep("File not found.").code(404);
+            }
         }
     };
 

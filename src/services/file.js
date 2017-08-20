@@ -74,7 +74,7 @@ module.exports = (server) => {
         getContent: async function (uuid) {
             const file = await this.getByUUID(uuid);
             if (!file)
-                return null;
+                throw new Error("File doesn't exists.");
 
             return new Promise((resolve, reject) => {
                 fs.readFile(file.path, (err, data) => {
@@ -144,6 +144,12 @@ module.exports = (server) => {
                     resolve();
                 });
             });
+        },
+        getTextContent: async function (uuid) {
+            const buffer = await this.getContent(uuid);
+
+            const text = buffer.toString("utf-8");
+            return text;
         }
     };
 
