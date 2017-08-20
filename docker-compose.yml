@@ -4,11 +4,11 @@ services:
         build: .
         volumes:
           # FOR DEV PURPOSE ONLY - Disable in production
-          # - $DOCWAC_SRC:/src
+          # - $WACDOC_SRC:/src
           # FOR PROD
           - $UPLOAD_VOL:/src/uploads
         environment:
-          - VIRTUAL_HOST=$DOCWAC_HOST
+          - VIRTUAL_HOST=$WACDOC_HOST
           - VIRTUAL_PORT=3000
           - UID=$UID
           - GID=$GID
