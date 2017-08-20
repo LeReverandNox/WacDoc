@@ -17,8 +17,6 @@ if [ ! -z $GID ] && [ $GID != "1000" ]; then
 fi
 
 chown -h node /src
-find /src -exec chgrp -h node {} \;
-find /src -exec chown -h node {} \;
 
 su node -c "$args" &
 sleep infinity
