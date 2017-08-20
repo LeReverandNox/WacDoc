@@ -87,11 +87,10 @@ module.exports = (server) => {
         deleteByUUID: async function (uuid) {
             const file = await this.getByUUID(uuid);
             if (!file)
-                return null;
+                throw new Error("File doesn't exists.");
 
             try {
                 this._delete(file.path);
-                services.db.getCollection(config.collectionName).findAndRemove({uuid: file.uuid});
             } catch (e) {
                 console.log(e);
             }

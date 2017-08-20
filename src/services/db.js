@@ -30,6 +30,13 @@ module.exports = function (server) {
             collection.insert(data);
             this._save();
             return;
+        },
+        removeFrom: function (collectionName, uuid) {
+            const collection = this.getCollection(config.collectionName);
+
+            collection.findAndRemove({ uuid: uuid });
+            this._save();
+            return;
         }
     };
 

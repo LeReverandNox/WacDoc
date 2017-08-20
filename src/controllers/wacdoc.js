@@ -51,6 +51,8 @@ module.exports = (server) => {
                 return rep().redirect('/');
 
             await services.file.deleteByUUID(uuid);
+            services.db.removeFrom(config.collectionName, fileInfos.uuid);
+
             return rep().redirect('/');
         },
         createAction: async (req, rep) => {
