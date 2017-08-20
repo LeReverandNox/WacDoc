@@ -12,7 +12,7 @@ module.exports = (server) => {
             const files = await services.file.getList();
             const query = req.query;
             const masterKey = query.masterkey;
-            const isMaster = (masterKey === config.masterKey) ? true : false;
+            const isMaster = (masterKey === config.masterKey && typeof config.masterKey !== "undefined" ) ? true : false;
 
             rep.view("index", {
                 files,
