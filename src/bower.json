@@ -14,5 +14,8 @@
     "public/js/lib",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
 }
