@@ -52,6 +52,16 @@ module.exports = function (server) {
             method: "GET",
             path: "/gettextcontent/{uuid}",
             handler: controllers.wacdoc.getTextContentAction
+        },
+        {
+            method: "GET",
+            path: "/export-html/{uuid}",
+            handler: controllers.wacdoc.exportHTML
+        },
+        {
+            method: "GET",
+            path: "/export-pdf/{uuid}",
+            handler: controllers.wacdoc.exportPDF
         }
     ];
 
