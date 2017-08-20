@@ -52,6 +52,20 @@ module.exports = (server) => {
 
             await services.file.deleteByUUID(uuid);
             return rep().redirect('/');
+        },
+        createAction: async (req, rep) => {
+            const payload = req.payload;
+            const fileName = payload.filename;
+
+            try {
+                const infos = await services.file.create(fileName);
+                services.db.insertInto(config.collectionName, infos);
+
+                return rep().redirect("/");
+            } catch (e) {
+                return rep().redirect("/");
+
+            }
         }
     };
 

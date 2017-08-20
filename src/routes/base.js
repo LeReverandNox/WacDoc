@@ -32,6 +32,11 @@ module.exports = function (server) {
             method: "GET",
             path: "/delete/{uuid}",
             handler: controllers.wacdoc.deleteAction
+        },
+        {
+            method: "POST",
+            path: "/create",
+            handler: controllers.wacdoc.createAction
         }
     ];
 

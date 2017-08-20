@@ -105,6 +105,30 @@ module.exports = (server) => {
             if (ext === "mywac")
                 return true;
             return false;
+        },
+        create: async function (name) {
+            const ext = name.split('.').pop();
+            if (ext !== "mywac")
+                return false;
+
+            const uuid = Uuid.v1();
+            const filePath = path.join(config.uploadPath, uuid);
+
+            fs.closeSync(fs.openSync(filePath, 'w'));
+
+            const infos = {
+                realName: name,
+                uuid: uuid,
+                size: fs.statSync(filePath).size,
+                path: filePath,
+                basePath: config.uploadPath,
+                mimetype: "application/octet-stream",
+                ext,
+                isWac: this._isWac(ext),
+                isDownloadable: this._isDownloadable(ext)
+            };
+
+            return infos;
         }
     };
 
