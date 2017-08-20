@@ -14,5 +14,39 @@
 </head>
 <body>
     <h1>Edit <%= fileInfos.realName %></h1>
+    <div>
+            <form method="post" action="/update" id="edit-form">
+                <div id="toolbox">
+                    <select id="title-select">
+                        <option selected>Title</option>
+                        <option value="h1">Title 1 &lt;h1&gt;</option>
+                        <option value="h2">Title 2 &lt;h2&gt;</option>
+                        <option value="h3">Title 3 &lt;h3&gt;</option>
+                        <option value="h4">Title 4 &lt;h4&gt;</option>
+                        <option value="h5">Title 5 &lt;h5&gt;</option>
+                        <option value="h6">Subtitle &lt;h6&gt;</option>
+                    </select>
+                    <select id="color-select">
+                        <option class="heading" selected>Color</option>
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="black">Black</option>
+                        <option value="purple">Purple</option>
+                    </select>
+
+                    <button type="button" id="bold-button">Bold</button>
+                    <button type="button" id="italic-button">Italic</button>
+                    <button type="button" id="underline-button">Underline</button>
+                    <button type="button" id="numbered-list-button">Numbered list</button>
+                    <button type="button" id="dotted-list-button">Dotted list</button>
+                </div>
+                <div id="textBox" contenteditable="true">
+                </div>
+                <input type="hidden" name="content" id="content">
+                <input type="hidden" name="uuid" value="<%= fileInfos.uuid %>">
+                <p><input type="submit" value="Send" /></p>
+            </form>
+    </div>
 </body>
 </html>
