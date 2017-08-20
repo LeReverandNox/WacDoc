@@ -1,4 +1,5 @@
 src/node_modules/
 src/uploads
 src/public/js/lib
+uploads/
 .env
