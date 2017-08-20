@@ -66,6 +66,27 @@ module.exports = (server) => {
                 return rep().redirect("/");
 
             }
+        },
+        updateAction: async (req, rep) => {
+            const payload = req.payload;
+            const uuid = payload.uuid;
+            const content = payload.content;
+
+            const fileInfos = await services.file.getByUUID(uuid);
+
+            if (!fileInfos)
+                return rep().redirect('/');
+            if (!fileInfos.isWac)
+                return rep().redirect('/');
+
+            try {
+                await services.file.update(uuid, content);
+                return rep().redirect("/");
+            } catch (e) {
+                console.log(e);
+                return rep().redirect("/");
+            }
+
         }
     };
 

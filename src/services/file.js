@@ -129,6 +129,21 @@ module.exports = (server) => {
             };
 
             return infos;
+        },
+        update: async function (uuid, content) {
+            const file = await this.getByUUID(uuid);
+            if (!file)
+                throw new Error("File doesn't exists.");
+
+            return new Promise((resolve, reject) => {
+                fs.writeFile(file.path, content, (err) => {
+                    if (err) {
+                        reject(err)
+                    }
+
+                    resolve();
+                });
+            });
         }
     };
 

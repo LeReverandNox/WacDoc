@@ -37,6 +37,11 @@ module.exports = function (server) {
             method: "POST",
             path: "/create",
             handler: controllers.wacdoc.createAction
+        },
+        {
+            method: "POST",
+            path: "/update",
+            handler: controllers.wacdoc.updateAction
         }
     ];
 
