@@ -58,11 +58,15 @@ module.exports = (server) => {
             const fileName = payload.filename;
 
             try {
+                if(!fileName || !fileName.match(/.+\.mywac/))
+                    throw new Error("Filename is not correct (*.mywac)");
+
                 const infos = await services.file.create(fileName);
                 services.db.insertInto(config.collectionName, infos);
 
                 return rep().redirect("/");
             } catch (e) {
+                console.log(e);
                 return rep().redirect("/");
 
             }

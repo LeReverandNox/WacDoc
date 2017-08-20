@@ -109,7 +109,7 @@ module.exports = (server) => {
         create: async function (name) {
             const ext = name.split('.').pop();
             if (ext !== "mywac")
-                return false;
+                throw new Error("File doesn't have the right extension (.mywac)");
 
             const uuid = Uuid.v1();
             const filePath = path.join(config.uploadPath, uuid);
