@@ -29,7 +29,8 @@ module.exports = (server) => {
                     size: fs.statSync(filePath).size,
                     path: filePath,
                     basePath: config.uploadPath,
-                    mimetype: file.hapi.headers['content-type']
+                    mimetype: file.hapi.headers['content-type'],
+                    ext: realName.split('.').pop()
                 };
 
                 return infos;
