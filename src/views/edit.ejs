@@ -45,7 +45,10 @@
                 </div>
                 <input type="hidden" name="content" id="content">
                 <input type="hidden" name="uuid" value="<%= fileInfos.uuid %>">
-                <p><input type="submit" value="Send" /></p>
+                <p><input type="submit" value="Send" />
+                    <form action="/">
+                        <input type="submit" value="Cancel" />
+                    </form></p>
             </form>
     </div>
 </body>
