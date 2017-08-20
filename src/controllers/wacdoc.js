@@ -60,7 +60,7 @@ module.exports = (server) => {
             const fileName = payload.filename;
 
             try {
-                if(!fileName || !fileName.match(/.+\.mywac/))
+                if(!fileName || !fileName.match(/.+\.mywac$/))
                     throw new Error("Filename is not correct (*.mywac)");
 
                 const infos = await services.file.create(fileName);
