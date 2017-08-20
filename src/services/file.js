@@ -6,6 +6,7 @@ const Uuid = require("uuid");
 const path = require("path");
 const fs = require("fs");
 const del = require("del");
+const pdf = require('html-pdf');
 
 module.exports = (server) => {
     const config = server.app.config;
@@ -149,6 +150,24 @@ module.exports = (server) => {
 
             const text = buffer.toString("utf-8");
             return text;
+        },
+        exportHTML: async function (uuid) {
+            const content = await this.getTextContent(uuid);
+            // NOW NEED TO IMPLEMENT REAL HTML EXPORT
+            return await this.getContent(uuid);
+        },
+        exportPDF: async function (uuid) {
+            const htmlFileBuffer = await this.exportHTML(uuid);
+            const htmlFile = htmlFileBuffer.toString('utf-8');
+            const options = { format: 'Letter' };
+
+            return new Promise((resolve, reject) => {
+                pdf.create(htmlFile, options).toBuffer((err, buffer) => {
+                    if (err)
+                        reject(err);
+                    resolve(buffer);
+                });
+            });
         }
     };
 
