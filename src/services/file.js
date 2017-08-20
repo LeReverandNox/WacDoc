@@ -152,9 +152,23 @@ module.exports = (server) => {
             return text;
         },
         exportHTML: async function (uuid) {
+            const fileInfos = await this.getByUUID(uuid);
             const content = await this.getTextContent(uuid);
-            // NOW NEED TO IMPLEMENT REAL HTML EXPORT
-            return await this.getContent(uuid);
+            const htmlTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>${fileInfos.realName}</title>
+</head>
+<body>
+    ${content}
+</body>
+</html>`;
+
+            const htmlBuffer = Buffer.from(htmlTemplate, 'utf-8');
+            return htmlBuffer
         },
         exportPDF: async function (uuid) {
             const htmlFileBuffer = await this.exportHTML(uuid);
