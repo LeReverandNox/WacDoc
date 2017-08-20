@@ -18,13 +18,27 @@
         <ul>
             <% for (var i = 0; i < files.length; i++) { %>
                 <li class="timeline-yellow" >
-                    <a href="/download/<%= files[i].uuid %>"><%= files[i].realName %></a> - <a href="/delete/<%= files[i].uuid %>">Delete</a>
-                    <%if (files[i].ext === 'mywac') { %>
+                    <%= files[i].realName %>
+                    <%if (files[i].isWac === true) { %>
                         - <a href="/edit/<%= files[i].uuid %>">Edit</a>
+                        - <a href="/export-html/<%= files[i].uuid %>">export HTML</a>
+                        - <a href="/export-pdf/<%= files[i].uuid %>">export PDF</a>
+                        - <a href="/delete/<%= files[i].uuid %>">Delete</a>
+                    <% } %>
+                    <%if (files[i].isDownloadable === true) { %>
+                        - <a href="/download/<%= files[i].uuid %>">Download</a>
                     <% } %>
                 </li>
             <% } %>
         </ul>
+    </div>
+    <div>
+        <h2>Create a .mywac file !</h2>
+        <form action="/create" method="POST">
+            <label for="filename">Name (including extension)</label>
+            <input type="text" name="filename" id="filename">
+            <input type="submit" value="Create">
+        </form>
     </div>
 </body>
 </html>
