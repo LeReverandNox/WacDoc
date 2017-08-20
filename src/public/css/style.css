@@ -1,0 +1,11 @@
+#textBox {
+    width: 540px;
+    height: 200px;
+    border: 1px #000000 solid;
+    padding: 12px;
+    overflow: scroll;
+    padding: 0;
+    margin: 0;
+    min-width: 498px;
+    min-height: 200px;
+}
