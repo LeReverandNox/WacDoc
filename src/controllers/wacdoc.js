@@ -10,7 +10,7 @@ module.exports = (server) => {
     const wacdocController = {
         indexAction: async (req, rep) => {
             const files = await services.file.getList();
-            // console.log(files);
+
             rep.view("index", {
                 files
             });
@@ -77,7 +77,7 @@ module.exports = (server) => {
             const payload = req.payload;
             const uuid = payload.uuid;
             const content = payload.content;
-
+            console.log(content);
             const fileInfos = await services.file.getByUUID(uuid);
 
             if (!fileInfos)
